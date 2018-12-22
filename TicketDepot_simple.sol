@@ -39,9 +39,9 @@ contract TicketDepot {
        // чтобы оплатить комиссию владельца контракта + сам билет,
        // то _attendee в attendees соответствующего event. Уменьшает количество доступных билетов.
        // Сразу переводит деньги owner мероприятия.
+       
        require (events[_eventID].ticketsRemaining > 0 && msg.value >= (events[_eventID].ticketPrice + transactionFee));
        events[_eventID].owner.transfer(events[_eventID].ticketPrice);
-       //TicketDepot.send(transactionFee);
        wallet_contract.send(transactionFee);
        events[_eventID].attendees[events[_eventID].ticketsRemaining] = _attendee;
        return events[_eventID].ticketsRemaining --;
