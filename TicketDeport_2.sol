@@ -93,7 +93,7 @@ contract TicketDepot {
        events[_eventID].owner.transfer(offerings[offerID].price);
        wallet_contract.transfer(transactionFee);
        events[_eventID].attendees[_ticketID] = _newAttendee;
-       
+       delete offerings[offerID];
    } 
  
 }
