@@ -31,13 +31,13 @@ contract TicketDepot {
    }
    
    
-   function get_address(uint16 _id, uint16 _ticketId) returns (address) {
+   /*function get_address(uint16 _id, uint16 _ticketId) returns (address) {
        return events[_id].attendees[_ticketId];
    }
    
    function balance_contract () returns (uint) {
        return wallet_contract.balance;
-   }
+   }*/
  
    function buyNewTicket(uint16 _eventID, address _attendee) payable returns (uint) {
        // Позволяет купить билет: если послано достаточно денег, 
@@ -67,10 +67,10 @@ contract TicketDepot {
     }
     
     
-    function get_offering(uint16 _eventID, uint16 _ticketID) returns (address) {
+   /* function get_offering(uint16 _eventID, uint16 _ticketID) returns (address) {
         bytes32 offerID = sha3(_eventID + _ticketID);
         return offerings[offerID].buyer;
-    }
+    }*/
 
 
    function offerTicket(uint16 _eventID, uint16 _ticketID, uint64 _price, address _buyer, uint16 _offerWindow) public onlyOwner(events[_eventID].attendees[_ticketID]){
