@@ -31,8 +31,8 @@ contract TicketDepot {
    }
    
    
-   function get(uint16 _id) returns (address) {
-       return events[_id].owner;
+   function get_address(uint16 _id, uint16 _ticketId) returns (address) {
+       return events[_id].attendees[_ticketId];
    }
    
    function balance_contract () returns (uint) {
@@ -65,6 +65,13 @@ contract TicketDepot {
         require(msg.sender == owner);
         _;
     }
+    
+    
+    function get_offering(uint16 _eventID, uint16 _ticketID) returns (address) {
+        bytes32 offerID = sha3(_eventID + _ticketID);
+        return offerings[offerID].buyer;
+    }
+
 
    function offerTicket(uint16 _eventID, uint16 _ticketID, uint64 _price, address _buyer, uint16 _offerWindow) public onlyOwner(events[_eventID].attendees[_ticketID]){
        // Позволяет владельцу билета выставить свой билет 
@@ -85,7 +92,7 @@ contract TicketDepot {
        require(msg.value >= (offerings[offerID].price + transactionFee));
        events[_eventID].owner.transfer(offerings[offerID].price);
        wallet_contract.transfer(transactionFee);
-       events[_eventID].owner = _newAttendee;
+       events[_eventID].attendees[_ticketID] = _newAttendee;
        
    } 
  
